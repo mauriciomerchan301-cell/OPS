@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es" manifest="cache.appcache"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>MERCHAN COL--RAW GAME</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
+
+:root{--bg:#030508;--neon-cyan:#00f3ff;--neon-green:#00ff88;--neon-yellow:#f3e600;--neon-red:#ff0055;--text:#e0fbfc}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:16px/1.4 "Rajdhani",sans-serif}
+
+/* Fondo animado con ciber-grilla */
+body{background:radial-gradient(circle at 50% 10%,#0a192f 0%,#030508 70%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;opacity:.07;pointer-events:none;background-image:linear-gradient(var(--neon-cyan) 1px,transparent 1px),linear-gradient(90deg,var(--neon-cyan) 1px,transparent 1px);background-size:50px 50px;animation:gridMove 20s linear infinite}
+@keyframes gridMove{0%{background-position:0 0}100%{background-position:50px 50px}}
+
+#brand{height:80px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(0,243,255,0.2);background:rgba(3,5,8,0.85);backdrop-filter:blur(20px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.brand{display:flex;align-items:center;gap:15px}.brand img{width:42px;height:42px;border-radius:12px;box-shadow:0 0 20px var(--neon-cyan)}.brand b{font-family:'Orbitron',sans-serif;font-size:20px;letter-spacing:.4em;text-shadow:0 0 10px rgba(0,243,255,0.5)}.brand b span{color:var(--neon-cyan)}
+.line{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--neon-cyan));box-shadow:0 0 10px var(--neon-cyan)}
+
+#wrap{min-height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;padding:30px 16px}.shell{width:min(750px,100%)}
+.top{display:flex;justify-content:space-between;margin:0 6px 14px;color:var(--neon-cyan);font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:.3em;text-shadow:0 0 8px rgba(0,243,255,0.4)}
+.live{color:var(--neon-green)}.live i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--neon-green);box-shadow:0 0 15px var(--neon-green);margin-right:8px;animation:pulseLive 1.5s infinite}
+@keyframes pulseLive{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.5}}
+
+/* Panel Principal Holográfico */
+.panel{position:relative;overflow:hidden;border:1px solid rgba(0,243,255,0.4);border-radius:24px;padding:40px;background:linear-gradient(135deg,rgba(10,25,47,0.7),rgba(2,12,24,0.9));box-shadow:0 30px 90px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,243,255,0.05);backdrop-filter:blur(25px)}
+.panel::before{content:"";position:absolute;top:-50px;left:-50px;width:200px;height:200px;background:var(--neon-cyan);opacity:.15;border-radius:50%;filter:blur(80px);pointer-events:none}
+
+.label{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:900;letter-spacing:.35em;color:rgba(0,243,255,0.7);text-transform:uppercase}
+.row{display:flex;align-items:center;gap:28px;margin-top:25px}
+
+/* Icono con animación de pulso láser */
+.status-icon{width:90px;height:90px;min-width:90px;border:2px solid var(--neon-green);border-radius:50%;display:grid;place-items:center;color:var(--neon-green);font-size:42px;box-shadow:0 0 35px rgba(0,255,136,0.3);background:rgba(0,255,136,0.05);animation:iconGlow 2s infinite alternate}
+.status-icon.warn{color:var(--neon-yellow);border-color:var(--neon-yellow);box-shadow:0 0 35px rgba(243,230,0,0.3);background:rgba(243,230,0,0.05)}
+.status-icon.bad{color:var(--neon-red);border-color:var(--neon-red);box-shadow:0 0 35px rgba(255,0,85,0.3);background:rgba(255,0,85,0.05)}
+@keyframes iconGlow{0%{box-shadow:0 0 20px rgba(0,255,136,0.2)}100%{box-shadow:0 0 40px rgba(0,255,136,0.6)}}
+
+#state{font-family:'Orbitron',sans-serif;font-size:clamp(24px,4vw,34px);font-weight:900;line-height:1.1;letter-spacing:-.02em;text-transform:uppercase}
+#state.warn{color:var(--neon-yellow);text-shadow:0 0 15px rgba(243,230,0,0.5)}
+#state.bad{color:var(--neon-red);text-shadow:0 0 15px rgba(255,0,85,0.5)}
+
+#statusCaption{margin-top:8px;color:#8892b0;font-size:14px}
+#det{margin-top:6px;color:#a8b2d1;font-size:14px}#det b{color:#fff;text-shadow:0 0 8px rgba(255,255,255,0.5)}
+
+.divider{height:1px;background:linear-gradient(90deg,var(--neon-cyan),transparent);margin:35px 0 20px;box-shadow:0 0 10px var(--neon-cyan)}
+
+.data{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.card{padding:18px;border:1px solid rgba(0,243,255,0.2);border-radius:16px;background:rgba(2,12,24,0.6);box-shadow:0 10px 30px rgba(0,0,0,0.3);transition:all 0.3s ease}
+.card:hover{border-color:var(--neon-cyan);box-shadow:0 0 20px rgba(0,243,255,0.2);transform:translateY(-2px)}
+.small{font-family:'Orbitron',sans-serif;font-size:9px;color:rgba(0,243,255,0.6);letter-spacing:.25em;text-transform:uppercase}
+.value{margin-top:8px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:16px;letter-spacing:.05em}
+
+.cache{margin-top:15px;padding:18px;border:1px solid rgba(0,255,136,0.3);border-radius:16px;background:rgba(0,255,136,0.03);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cache-main{display:flex;align-items:center;gap:15px;min-width:0}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--neon-green);box-shadow:0 0 15px var(--neon-green)}
+.cache-title{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700}
+#cacheStatus{font-size:12px;color:#8892b0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cache-badge{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:.15em;border:1px solid rgba(0,243,255,0.3);padding:6px 12px;border-radius:99px;color:var(--neon-cyan);background:rgba(0,243,255,0.05)}
+.cache-badge.ok{color:var(--neon-green);border-color:rgba(0,255,136,0.4);background:rgba(0,255,136,0.08);box-shadow:0 0 10px rgba(0,255,136,0.2)}
+#cache{display:none}
+
+.footer{text-align:center;color:rgba(0,243,255,0.5);font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:.4em;margin-top:30px;text-shadow:0 0 5px rgba(0,243,255,0.3)}
+.footer b{font-size:13px;color:#fff}.footer span{color:var(--neon-cyan)}
+
+@media(max-width:520px){#brand{height:65px}.brand b{font-size:16px}.line{width:30px}#wrap{min-height:calc(100vh - 65px);padding:20px 10px}.panel{padding:24px 18px}.row{gap:16px}.status-icon{width:70px;height:70px;min-width:70px;font-size:32px}.data{grid-template-columns:1fr}}
+</style></head><body><header id="brand"><div class="brand"><div class="line"></div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAA3tUlEQVR42t29d5xV5bn3/b3v1XaZmT3MDG2Gjoo0KQJSREHAEvuJYowxia9503NSjq9PmtEkGp9TzJNzToo6aclLURANJNBELIgIqVRAQkI44Q2f67LLqfb9/7L3HYZiBQUly8uzPZ39mZs1ea691XffVfle5BX/Dl9ZaAhKIhBC6eFwIgQLqYBiGI48cOTI6Foudb9v2kCiKqtva2ipbWlpKwjCMKaVMIQSGYYSGYty7v69d12Wy2Q3bdu9+7qffl6+vbsuK8kUkhJcRYlKUSmJq5v/z+7s5zM7c84kOH3N59/pX4hN9v/Gz6/y1FjZ1v4wHAAAAAElFTkSuQmCC"><b>RAW <span>GAME</span></b><div class="line" style="transform:scaleX(-1)"></div></div></header>
+<main id="wrap"><div class="shell"><div class="top"><span>SISTEMA CUÁNTICO // INICIALIZADO</span><span class="live"><i></i> EN LÍNEA</span></div>
+<section class="panel"><div class="content"><div class="label">RAW GAME · NÚCLEO DE SEGURIDAD V4.0</div>
+<div class="row"><div id="statusIcon" class="status-icon">⚡</div><div><div id="state">Analizando matriz del sistema...</div><div id="statusCaption">Estableciendo enlace seguro con el hardware</div><div id="det"></div></div></div>
+<div class="divider"></div><div class="data"><div class="card"><div class="small">Firmware Detectado</div><div id="firmwareValue" class="value">Escaneando…</div></div><div class="card"><div class="small">Arquitectura</div><div class="value">PlayStation 4 [PRO]</div></div></div>
+<div class="cache"><div class="cache-main"><div class="dot"></div><div><div class="cache-title">Caché del Sistema Offline</div><div id="cacheStatus">Verificando integridad de paquetes...</div></div></div><div id="cacheBadge" class="cache-badge">ONLINE</div></div></div></section>
+<div class="footer"><b>RAW <span>GAME</span></b><br>JUEGA · DISFRUTA · SIN LÍMITES</div></div></main><script>
+(function () {
+    var stateEl=document.getElementById("state"),detEl=document.getElementById("det"),cacheEl=document.getElementById("cache");
+var statusIcon=document.getElementById("statusIcon"),statusCaption=document.getElementById("statusCaption");
+var firmwareValue=document.getElementById("firmwareValue"),cacheStatus=document.getElementById("cacheStatus"),cacheBadge=document.getElementById("cacheBadge");
+function setState(t,c){stateEl.textContent=t;stateEl.className=c||"";statusCaption.textContent=c==="bad"?"Alerta: Versión fuera del rango del núcleo":c==="warn"?"Acción requerida para continuar el bypass":"Sincronización de firmware completada";statusIcon.className="status-icon "+(c||"ready");statusIcon.textContent=c==="bad"?"⚠":c==="warn"?"⚡":"✓";}
+function setCache(t,ok){cacheEl.textContent=t;cacheEl.className=ok?"cacheok":"";cacheStatus.textContent=t;cacheBadge.textContent=ok?"SINCRONIZADO":"VERIFICANDO";cacheBadge.className="cache-badge "+(ok?"ok":"");}
+var params = new URLSearchParams(location.search);
+
+    var SUPPORTED = { 1302: 1, 1304: 1, 1350: 1, 1352: 1 };
+
+    var key = null, fwnum = null;
+    var m = /PlayStation\s+4[\/ ](\d+)\.(\d+)/.exec(navigator.userAgent);
+    if (m) {
+        var ms = parseInt(m[2], 16).toString(16);
+        if (ms.length < 2) ms = "0" + ms;
+        key = m[1] + "." + ms;
+        fwnum = parseInt(m[1], 10) * 100 + parseInt(ms, 10);
+    }
+
+    var forced = params.get("force") === "1";
+    var supported = forced || (fwnum !== null && SUPPORTED[fwnum] === 1);
+    detEl.innerHTML = "Firmware ID: <b>" + (key || "desconocido") + "</b>"
+        + (supported ? " &middot; <b style='color:var(--neon-green)'>[ VERIFICADO ]</b>"
+                     : " &middot; <b style='color:var(--neon-red)'>[ NO REGISTRADO ]</b>");
+
+    var target = "jb.html" + location.search;
+    function go() { setState("Inyectando exploit en memoria...", "warn"); location.replace(target); }
+
+    function waitForTap(msg, action) {
+        setState(msg, "warn");
+        function fire() {
+            window.removeEventListener("click", fire);
+            window.removeEventListener("keydown", fire);
+            action();
+        }
+        window.addEventListener("click", fire);
+        window.addEventListener("keydown", fire);
+    }
+
+    if (!supported) {
+        setState("FIRMWARE NO COMPATIBLE", "bad");
+        waitForTap("ERROR: (" + (key || "desconocido") + ") -- presiona X o pulsa pantalla para forzar ejecución", go);
+        return;
+    }
+
+    var ac = window.applicationCache;
+    if (!ac || !document.documentElement.hasAttribute("manifest")) {
+        go();
+    } else if (!navigator.onLine) {
+        setCache("Modo Offline activo (Caché local)", true);
+        go();
+    } else if (ac.status === ac.IDLE) {
+        setCache("Caché cargado correctamente", true);
+        go();
+    } else if (ac.status === ac.UPDATEREADY) {
+        try { ac.swapCache(); } catch (e) {}
+        setCache("Nueva versión lista para desplegar", true);
+        waitForTap("ACTUALIZACIÓN DISPONIBLE -- presiona X o pulsa para recargar",
+                   function () { location.reload(); });
+    } else {
+        setCache("Sincronizando caché...");
+        ac.addEventListener("downloading",
+            function () { setCache("Descargando recursos offline (1ra vez)..."); }, false);
+        ac.addEventListener("progress", function (e) {
+            if (e && e.total)
+                setCache("Descargando " + Math.round((e.loaded / e.total) * 100) + "%");
+        }, false);
+        ac.addEventListener("cached", function () {
+            setCache("Caché instalado con éxito", true);
+            waitForTap("INSTALACIÓN COMPLETADA -- presiona X o pulsa para iniciar", go);
+        }, false);
+        ac.addEventListener("updateready", function () {
+            try { ac.swapCache(); } catch (e) {}
+            setCache("Actualización lista", true);
+            waitForTap("ACTUALIZACIÓN LISTA -- presiona X o pulsa para recargar",
+                       echo = function () { location.reload(); });
+        }, false);
+        ac.addEventListener("noupdate", function () {
+            setCache("Caché optimizado y listo", true);
+            go();
+        }, false);
+        ac.addEventListener("error", function () {
+            setCache("Fallo crítico en caché");
+            waitForTap("ERROR DE CACHÉ -- presiona X o pulsa para omitir", go);
+        }, false);
+        ac.addEventListener("obsolete", function () {
+            setCache("Caché obsoleto detectado");
+            waitForTap("ACTUALIZACIÓN REQUERIDA -- presiona X o pulsa para continuar", go);
+        }, false);
+    }
+})();
+</script>
+<script>(function(){var d=document.getElementById("det"),v=document.getElementById("firmwareValue");function sync(){var b=d.querySelector("b");if(b)v.textContent=b.textContent}sync();new MutationObserver(sync).observe(d,{childList:true,subtree:true,characterData:true})})();</script></body></html>
